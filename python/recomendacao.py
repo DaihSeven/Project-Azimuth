@@ -6,8 +6,7 @@ PASTA_CSV = "1-lh_nautical_csv"
 
 
 def sistema_recomendacao():
-    # 1. Mapear IDs e Nomes de Produtos
-    products = {}  # prod_id -> prod_name
+    products = {}  
     target_id = None
     target_name_query = "Motor de Popa 1949"
 
@@ -22,8 +21,7 @@ def sistema_recomendacao():
             if target_name_query.lower() in p_name.lower():
                 target_id = p_id
 
-    # 2. Mapear Variantes -> Produto
-    variant_to_prod = {}  # variant_id -> prod_id
+    variant_to_prod = {}  
     with open(
         os.path.join(PASTA_CSV, "product_variants.csv"),
         mode="r",
@@ -33,8 +31,7 @@ def sistema_recomendacao():
         for row in reader:
             variant_to_prod[row["id"]] = row["product_id"]
 
-    # 3. Mapear Pedidos -> Clientes
-    order_to_customer = {}  # order_id -> customer_id
+    order_to_customer = {}  
     with open(
         os.path.join(PASTA_CSV, "orders.csv"), mode="r", encoding="utf-8-sig"
     ) as f:
@@ -42,7 +39,6 @@ def sistema_recomendacao():
         for row in reader:
             order_to_customer[row["id"]] = row["customer_id"]
 
-    # 4. Construir Matriz Binária Interativa (Produto -> Conjunto de Clientes Compradores)
     prod_customers = {p_id: set() for p_id in products.keys()}
 
     with open(
@@ -60,7 +56,6 @@ def sistema_recomendacao():
             if p_id and c_id and p_id in prod_customers:
                 prod_customers[p_id].add(c_id)
 
-    # 5. Cálculo da Similaridade de Cosseno em relação ao "Motor de Popa 1949"
     if not target_id:
         print(f"Produto '{target_name_query}' não encontrado no catálogo!")
         return
@@ -72,24 +67,20 @@ def sistema_recomendacao():
 
     for p_id, custs in prod_customers.items():
         if p_id == target_id:
-            continue  # Ignora o próprio produto de referência
+            continue 
 
         len_other = len(custs)
         if len_other == 0 or len_target == 0:
             similaridades.append((products[p_id], 0.0))
             continue
 
-        # Interseção de clientes compradores (Produto Escalar entre vetores binários)
         intersecao = len(target_custs.intersection(custs))
 
-        # Similaridade de Cosseno: |A ∩ B| / (sqrt(|A|) * sqrt(|B|))
         cos_sim = intersecao / (math.sqrt(len_target) * math.sqrt(len_other))
         similaridades.append((products[p_id], cos_sim))
 
-    # Ordena do maior para o menor grau de similaridade
     similaridades.sort(key=lambda x: x[1], reverse=True)
 
-    # 6. Exibe o Ranking
     print(f"=== RECOMENDAÇÕES PARA: {products[target_id]} ===")
     print(f"Total de compradores do item alvo: {len_target}\n")
     print("Top 5 Produtos Mais Similares:")

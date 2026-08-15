@@ -1,10 +1,11 @@
 import os
 import psycopg2
+from dotenv import load_dotenv
 
-# Configuração da conexão com o banco Neon
-DATABASE_URL = "postgresql://neondb_owner:npg_FSWUarYVJ74T@ep-small-star-axpsu62l-pooler.c-4.us-east-2.aws.neon.tech/neondb?sslmode=require"
-PASTA_CSV = "1-lh_nautical_csv"
+load_dotenv()
 
+DATABASE_URL = os.getenv("DATABASE_URL")
+PASTA_CSV = os.getenv("PASTA_CSV", "1-lh_nautical_csv")
 
 def carregar_arquivos():
     conn = psycopg2.connect(DATABASE_URL)
@@ -19,7 +20,6 @@ def carregar_arquivos():
 
         print(f"-> Inserindo dados em '{tabela}'...")
         with open(caminho_arquivo, mode="r", encoding="utf-8-sig") as f:
-            # COPY nativo do PostgreSQL: lê o CSV mantendo os dados exatamente como estão
             sql_copy = f"COPY {tabela} FROM STDIN WITH (FORMAT CSV, HEADER TRUE, DELIMITER ',');"
             cursor.copy_expert(sql=sql_copy, file=f)
 

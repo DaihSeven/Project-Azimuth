@@ -9,14 +9,12 @@ BIGINT_MAX = 9223372036854775807
 
 
 def e_timestamp(v):
-    # Valida o formato YYYY-MM-DD HH:MM:SS
     if len(v) >= 19 and v[4] == "-" and v[7] == "-" and v[10] in (" ", "T") and v[13] == ":" and v[16] == ":":
         return v[0:4].isdigit()
     return False
 
 
 def e_data(v):
-    # Valida o formato YYYY-MM-DD
     if len(v) == 10 and v[4] == "-" and v[7] == "-":
         return v[0:4].isdigit() and v[5:7].isdigit() and v[8:10].isdigit()
     return False
@@ -26,11 +24,9 @@ def detectar_tipo(valores):
     if not valores:
         return "VARCHAR(255)"
 
-    # Checa Booleano
     if all(v.lower() in ("true", "false", "t", "f") for v in valores):
         return "BOOLEAN"
 
-    # Checa Inteiro (limitado ao BIGINT do PostgreSQL)
     eh_int = True
     for v in valores:
         try:
@@ -44,7 +40,6 @@ def detectar_tipo(valores):
     if eh_int:
         return "BIGINT"
 
-    # Checa Decimal / Float
     eh_numeric = True
     for v in valores:
         try:
@@ -55,15 +50,12 @@ def detectar_tipo(valores):
     if eh_numeric:
         return "NUMERIC"
 
-    # Checa Timestamp
     if all(e_timestamp(v) for v in valores):
         return "TIMESTAMP"
 
-    # Checa Date
     if all(e_data(v) for v in valores):
         return "DATE"
 
-    # Texto longo
     if max(len(v) for v in valores) > 255:
         return "TEXT"
 
