@@ -1,10 +1,5 @@
 # Project-Azimuth
 
-
-[Dashboard online](https://project-azimuth.onrender.com/)
-
-[Dashboard pdf](./dashboard/Dashboard%20-%20LH%20Nautical.pdf)
-
 # ⚓ LH Nautical — Pipeline de Dados, Inteligência Preditiva & Dashboard
 
 Este repositório contém a solução completa para o desafio técnico da **LH Nautical**. O projeto engloba desde a ingestão bruta e modelagem relacional em PostgreSQL (Neon DB), passando por análises exploratórias avançadas, algoritmos preditivos de demanda, motor de recomendação por similaridade e um dashboard interativo hospedado no Render.
@@ -93,6 +88,11 @@ python python/carregar_dados.py
 ```
 streamlit run python/app.py
 ```
+## Dashboard 
+
+[Dashboard online](https://project-azimuth.onrender.com/)
+
+[Dashboard pdf](./dashboard/Dashboard%20-%20LH%20Nautical.pdf)
 
 <i>
 Curiosidade sobre o nome do projeto Project Azimuth: Azimute é a coordenada usada na navegação astronômica para medir direções. E este projeto significa para uma empresa uma forma de direcionar melhor suas informações, dados e recursos.
