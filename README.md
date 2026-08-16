@@ -19,7 +19,9 @@ Project-Azimuth/
 ├── dashboard/              # Dashboard detalhado
 │   └── Dashboard - LH Nautical.pdf     # Dashboard em pdf
 ├── docs/                   # Documentação detalhada e relatórios
-│   └── DOCUMENTACAO.md     # Documentação completa do projeto
+│   └── Documentação Técnica do Desafio LH Nautical.pdf     # Documentação completa do projeto
+├── er/                     # Entidade e Relacionamento
+│   └── lh_autical-2.pdf    # Diagrama Entidade e Relacionamento em pdf
 ├── python/
 │   ├── app.py              # Aplicação Streamlit (Dashboard Interativo)
 │   ├── carregar_dados.py   # Script de carga via COPY do PostgreSQL
@@ -63,7 +65,7 @@ Instância do PostgreSQL configurada (ex: Neon DB).
 - Clone o repositório:
 
 ```
-git clone [https://github.com/DaihSeven/Project-Azimuth.git](https://github.com/DaihSeven/Project-Azimuth.git)
+git clone https://github.com/DaihSeven/Project-Azimuth.git
 cd Project-Azimuth
 ```
 - Instale as dependências:
@@ -75,7 +77,7 @@ pip install -r requirements.txt
 
 - Crie um arquivo .env na raiz do projeto contendo:
 
-- Snippet de código
+- Snippet de código do .env
 ```
 DATABASE_URL="postgresql://usuario:senha@host/neondb?sslmode=require"
 PASTA_CSV="1-lh_nautical_csv"
@@ -91,3 +93,7 @@ python python/carregar_dados.py
 ```
 streamlit run python/app.py
 ```
+
+<i>
+Curiosidade sobre o nome do projeto Project Azimuth: Azimute é a coordenada usada na navegação astronômica para medir direções. E este projeto significa para uma empresa uma forma de direcionar melhor suas informações, dados e recursos.
+</i>
