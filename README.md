@@ -26,10 +26,14 @@ Project-Azimuth/
 │   ├── gerar_schema.py     # Gerador de DDL em Python puro
 │   ├── previsao_demanda.py # Modelo de Média Móvel (Q6)
 │   └── recomendacao.py     # Motor de Recomendação via Cosseno (Q7)
+├── sql/
+│   ├── schema.sql          # Estrutura DDL gerada para o PostgreSQL
+│   ├── shemaDBdiagram.sql  # Estrutura da ER do DBdiagram
 ├── .env.example            # Modelo de variáveis de ambiente
 ├── .gitignore              # Proteção contra commit de credenciais
 ├── requirements.txt        # Dependências da aplicação
-└── schema.sql              # Estrutura DDL gerada para o PostgreSQL
+
+
 
 ```
 
